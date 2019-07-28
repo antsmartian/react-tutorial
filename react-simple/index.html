@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>React simple</title>
+	</head>
+	<body>
+		<div id="root"></div>
+
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+
+	<script>
+
+		const items = [
+			"Javscript by example",
+			"React by example",
+			"React by example 2nd",
+			"React by example 3",
+			"React by example 4",
+		]
+
+		fetch("https://randomuser.me/api/")
+			.then(res => res.json())
+			.then(json => {
+				console.log(json.results[0].name)
+				const userNames =	React.createElement("ul", null, 
+			json.results.map(nameInfo => React.createElement("li", {key : Math.random()}, nameInfo.name.first)));
+
+				ReactDOM.render(userNames ,document.getElementById("root"))
+			})
+
+
+		// const heading = React.createElement("ul", null, 
+		// 	items.map(bookTitles => React.createElement("li", null, bookTitles)));
+
+		// ReactDOM.render(heading ,document.getElementById("root"))
+	</script>
+
+	</body>
+</html>

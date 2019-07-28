@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>React with babel</title>
+	</head>	
+	<body>
+		<div id="root"></div>
+
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js"> </script>
+
+
+	<script type="text/babel">
+		class FirstComponent extends React.Component {
+			render() {
+				return (
+						<div>
+							My first component
+						</div>
+					)
+			}
+		}
+
+
+
+		ReactDOM.render(<FirstComponent />, document.getElementById("root"));
+
+
+	</script>
+
+	</body>
+</html>
