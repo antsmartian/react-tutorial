@@ -28,3 +28,5 @@ export default function Display({value}) {
 Display.propTypes = {
 	value: PropTypes.string
 }
+
+

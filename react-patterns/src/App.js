@@ -12,6 +12,8 @@ function UserName({children}) {
     )
 }
 
+// www.asdass.com/myaccount/todolist
+// myorg/todolist 
 function TodoList({ todos, render }) {
   return (
     <section>
@@ -68,6 +70,8 @@ function App() {
 }
 
 
+
+// Presentational component & Container Component
 
 
 
