@@ -1,0 +1,69 @@
+<html>
+	<body>
+			<div> Random counter example <span id="counter"></span></div>
+
+		<script>
+			const counterNode = document.getElementById('counter');
+
+			// Our own redux library :)
+			const createStore = (reducer, initialState) => {
+				const store = {};
+				store.state = initialState;
+				store.listeners = [];
+				store.getState = () => store.state;
+
+				store.subscribe = listener => {
+					store.listeners.push(listener)
+				}
+
+				store.dispatch = action => {
+					console.log(" > Action received", action);
+					store.state = reducer(store.state, action);
+					store.listeners.forEach(listener => listener())
+				}
+
+				return store;
+			}
+
+			const initialState = () => {
+				return { count: 0 }
+			}
+
+
+			const reducer = (state = initialState(), action) => {
+				switch (action.type) {
+					case 'COUNT':
+						const nextState = { count: state.count + action.payload.count }
+						return nextState;
+					default:
+						return state;	
+				}
+			}
+
+
+
+			const store = createStore(reducer);
+			store.subscribe(() => {
+				const state = store.getState();
+				const count = state.count;
+				counterNode.innerHTML = count;
+			});
+
+
+			document.addEventListener('click', () => {
+				console.log("prev state", store.getState())
+
+				store.dispatch({
+					type: 'COUNT', 
+					payload: {
+						count: Math.random()
+					}
+				});
+
+				console.log("new state", store.getState())
+			})
+
+
+		</script>
+	</body>	
+</html>

@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 
-/*
+/* Yup.object
 const FormikExample = () => (
 	<Formik 
 
@@ -46,6 +47,7 @@ const FormikExample = () => (
 )
 */
 
+/*
 const FormikExample = () => (
 
 	<Formik
@@ -93,6 +95,56 @@ const FormikExample = () => (
 	</Formik>
 
 
+)
+*/
+
+const schema = Yup.object().shape({
+	firstName: Yup.string()
+				  .min(2, 'Too short')
+				  .max(50, 'Too long')
+				  .required('Required..'), 
+
+    lastname: Yup.string()
+    			 .min(2, 'Too small')
+    			 .max(10, 'too long word')
+    			 .required('this is required')
+});
+
+const FormikExample = () => (
+	<Formik
+		initialValues={{firstName: '', lastname: ''}}
+		validateOnChange={true}
+		validateOnBlur={true}
+		validationSchema={schema}
+		onSubmit={
+			values => console.log("submitting the values ", values)
+		}>
+
+		{({ handleSubmit, errors, touched }) => (
+			<React.Fragment>
+				<h3>Yup Demo</h3>
+
+				<Form onSubmit={handleSubmit}>
+					<Field placeholder="name" name="firstName" />
+					{
+						errors.firstName && touched.firstName &&
+						<div style={{color: 'red'}}>
+							{errors.firstName}
+						</div>
+					}
+
+					<Field placeholder="lastname" name="lastname" />
+					{
+						errors.lastname && touched.lastname &&
+						<div style={{color: 'red'}}>
+							{errors.lastname}
+						</div>
+					}
+				</Form>
+
+			</React.Fragment>
+		)}		
+	</Formik>	
 )
 
 export default FormikExample;

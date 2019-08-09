@@ -8,6 +8,9 @@
 		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
+	<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.4/redux.min.js
+
+"></script>
 
 	<script>
 
@@ -29,6 +32,38 @@
 				ReactDOM.render(userNames ,document.getElementById("root"))
 			})
 
+
+		function counter(state, action) {
+		  if (typeof state == 'undefined') {
+		    state = 0;
+		  }  
+
+		    switch (action.type) {
+		      case 'INCREMENT':
+
+		        state++;
+		        break;
+		      case 'DECREMENT':
+		        state--;
+		        break;
+		    }
+
+		    return state;
+		}	
+
+		var store = Redux.createStore(counter);
+
+		function render() {
+			document.querySelector('body').innerHTML = store.getState()
+		}
+
+		setInterval(() => store.dispatch({type:'DECREMENT'}), 1000);
+
+		store.subscribe(render);
+
+		document.addEventListener('click', () => {
+			store.dispatch({type: 'INCREMENT'})
+		})
 
 		// const heading = React.createElement("ul", null, 
 		// 	items.map(bookTitles => React.createElement("li", null, bookTitles)));
