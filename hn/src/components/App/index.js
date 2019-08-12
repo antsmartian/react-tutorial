@@ -1,10 +1,16 @@
-import React from "react";
-import ReactDOm from 'react-dom';
+import { connect } from 'react-redux';
+import actions from 'store/story/action'
+import App from './App'
 
-export default function App() {
-	return (
-			<div>
-				App component
-			</div>	
-		)
-}
+const mapStateToProps = state => ({
+	isFetching: state.story.isFetching
+})
+
+const mapDispatchToProps = dispatch => ({
+	fetchStoriesForThePage: () => dispatch(actions.fetchStoryIds())
+})
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(App);
